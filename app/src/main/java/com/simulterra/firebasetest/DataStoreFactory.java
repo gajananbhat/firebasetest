@@ -26,11 +26,11 @@ public class DataStoreFactory
 
         if (data_store.equalsIgnoreCase("Firebase"))
         {
-            return new FirebaseDataStore(context);
+            return FirebaseDataStore.getInstance(context);
         }
         else if (data_store.equalsIgnoreCase("SQL"))
         {
-            return new SQLDataStore(context);
+            return SQLDataStore.getInstance(context);
         }
 
         return null;

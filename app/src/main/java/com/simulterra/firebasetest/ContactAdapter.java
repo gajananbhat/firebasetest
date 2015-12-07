@@ -1,5 +1,7 @@
 package com.simulterra.firebasetest;
 
+import android.util.Log;
+
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -13,6 +15,7 @@ import java.util.List;
  */
 public class ContactAdapter
 {
+    private final String TAG = this.getClass().getSimpleName();
 
     private ContactListener mContactListener = null;
 
@@ -25,23 +28,32 @@ public class ContactAdapter
 
     }
 
-    public List<Contact> getContacts()
+    public void getContacts()
     {
-        List<Contact> contactList = new ArrayList<Contact>();
+        final List<Contact> contactList = new ArrayList<Contact>();
 
-        Firebase myFirebaseRef = new Firebase("https://howzap.firebaseio.com/");
-        myFirebaseRef.child("message").addValueEventListener(new ValueEventListener() {
-
+        Firebase myFirebaseRef = new Firebase("https://hzfbtest.firebaseio.com/contacts");
+        myFirebaseRef.addListenerForSingleValueEvent(new ValueEventListener()
+        {
             @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                System.out.println(snapshot.getValue());  //prints "Do you have data? You'll love Firebase."
+            public void onDataChange(DataSnapshot snapshot)
+            {
+                System.out.println(snapshot.getValue());
+                Log.d(TAG, snapshot.getValue().toString());
+                for (DataSnapshot child : snapshot.getChildren())
+                {
+                    //Contact c = new Contact(child.child("name").getValue().toString());
+                    Contact c = child.getValue(Contact.class);
+                    System.out.println(c.getFullName());
+                    contactList.add(c);
+                }
+                mContactListener.getContactsComplete(contactList);
             }
 
-            @Override public void onCancelled(FirebaseError error) { }
-
+            @Override public void onCancelled(FirebaseError error)
+            {
+            }
         });
-
-        return contactList;
     }
 
     public void updateContact()

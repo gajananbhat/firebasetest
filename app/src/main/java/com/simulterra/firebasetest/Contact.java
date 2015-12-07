@@ -21,6 +21,7 @@ public class Contact
     private String authId;
     private String phoneNumber;
     private String fullName;
+    private String name;
     private String userName;
     private String emailId;
     private String deviceId;
@@ -32,14 +33,10 @@ public class Contact
 
     public Contact() {}
 
-    public Contact(String fullName, String userName, String emailId, String phoneNumber, String deviceId, String regId)
+    public Contact(String name)
     {
-        this.phoneNumber = phoneNumber;
-        this.fullName = fullName;
-        this.userName = userName;
-        this.emailId = emailId;
-        this.deviceId = deviceId;
-        this.registrationId = regId;
+        this.fullName = name;
+        this.name = name;
     }
 
     public String getPhoneNumber() {
@@ -88,5 +85,13 @@ public class Contact
 
     public void setRegistrationId(String registrationId) {
         this.registrationId = registrationId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

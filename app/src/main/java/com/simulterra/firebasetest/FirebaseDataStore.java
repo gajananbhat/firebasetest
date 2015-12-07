@@ -11,8 +11,25 @@ public class FirebaseDataStore implements DataStore
 
     private Context context;
 
-    public FirebaseDataStore(Context ctx)
+    private static FirebaseDataStore sInstance;
+
+    private static final String FIREBASE_HOME = "https://hzfbtest.firebaseio.com/";
+
+    /**
+     * Constructor should be private to prevent direct instantiation.
+     * make call to static method "getInstance()" instead.
+     */
+    private FirebaseDataStore(Context context)
     {
-        this.context = ctx;
+        this.context = context;
+    }
+
+    public static synchronized FirebaseDataStore getInstance(Context context)
+    {
+        if (sInstance == null)
+        {
+            sInstance = new FirebaseDataStore(context.getApplicationContext());
+        }
+        return sInstance;
     }
 }

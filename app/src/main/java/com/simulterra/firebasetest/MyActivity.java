@@ -13,7 +13,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-public class MyActivity extends AppCompatActivity {
+import java.util.List;
+
+public class MyActivity extends AppCompatActivity implements ContactListener
+{
 
     private final String TAG = this.getClass().getSimpleName();
 
@@ -28,10 +31,10 @@ public class MyActivity extends AppCompatActivity {
         SharedPreferences prefs = getApplication().getSharedPreferences("HowzapPrefs", 0);
         Log.d(TAG, "DATA_STORE=" + prefs.getString("data_store", null));
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+/*        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);*/
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -39,9 +42,11 @@ public class MyActivity extends AppCompatActivity {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        });*/
 
-
+        ContactAdapter ca = new ContactAdapter();
+        ca.setContactListener(this);
+        ca.getContacts();
     }
 
     @Override
@@ -64,5 +69,24 @@ public class MyActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void getContactsComplete(final List<Contact> contactList)
+    {
+        Log.d(TAG, "Inside getContactCompelte. ContactList size=" + contactList.size());
+        System.out.println(contactList);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MyActivity.this, "contacts count :" + contactList.size(), Toast.LENGTH_SHORT).show();
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
     }
 }
