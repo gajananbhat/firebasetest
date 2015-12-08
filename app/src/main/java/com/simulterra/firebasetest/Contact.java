@@ -18,6 +18,7 @@ public class Contact
     private final String TAG = this.getClass().getSimpleName();
 
     private String id;
+    private int viewId;
     private String authId;
     private String phoneNumber;
     private String fullName;
@@ -93,5 +94,21 @@ public class Contact
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public int getViewId() {
+        return viewId;
+    }
+
+    public void setViewId(int viewId) {
+        this.viewId = viewId;
     }
 }

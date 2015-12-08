@@ -26,11 +26,13 @@ public class ContactFBController implements ContactController
         mFBDataStore = fds;
     }
 
+    @Override
     public void setContactListener(ContactListener mContactListener)
     {
         this.mContactListener = mContactListener;
     }
 
+    @Override
     public void getContacts()
     {
         Firebase myFirebaseRef = mFBDataStore.getFBRootRef().child("contacts");
@@ -43,11 +45,14 @@ public class ContactFBController implements ContactController
                 System.out.println(snapshot.getValue());
                 Log.d(TAG, snapshot.getValue().toString());
                 List<Contact> contactList = new ArrayList<Contact>();
+                int i = 1;
                 for (DataSnapshot child : snapshot.getChildren())
                 {
                     //Contact c = new Contact(child.child("name").getValue().toString());
                     Contact c = child.getValue(Contact.class);
-                    System.out.println(c.getFullName());
+                    c.setId(child.getKey());
+                    c.setViewId(i++);
+                    Log.d(TAG, c.getId() + ":" + c.getFullName());
                     contactList.add(c);
                 }
                 mContactListener.getContactsComplete(contactList);
@@ -57,5 +62,13 @@ public class ContactFBController implements ContactController
             {
             }
         });
+    }
+
+    @Override
+    public void updateContact(Contact contact)
+    {
+        Log.d(TAG, "In updateContact");
+        Firebase myFirebaseRef = mFBDataStore.getFBRootRef().child("contacts");
+        myFirebaseRef.child("c1").setValue(contact);
     }
 }

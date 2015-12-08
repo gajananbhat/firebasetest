@@ -9,4 +9,6 @@ public interface ContactController {
 
     public void getContacts();
 
+    public void updateContact(Contact contact);
+
 }

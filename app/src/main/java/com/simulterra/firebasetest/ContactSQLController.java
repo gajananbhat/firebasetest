@@ -10,4 +10,6 @@ public class ContactSQLController implements ContactController
     public void getContacts() {}
 
     public void setContactListener(ContactListener contactListener) {}
+
+    public void updateContact(Contact contact) {}
 }

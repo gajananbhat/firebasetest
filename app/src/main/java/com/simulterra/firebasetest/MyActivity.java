@@ -11,14 +11,19 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MyActivity extends AppCompatActivity implements ContactListener
 {
 
     private final String TAG = this.getClass().getSimpleName();
+    private ContactAdapter mContactAdapter = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +36,9 @@ public class MyActivity extends AppCompatActivity implements ContactListener
         SharedPreferences prefs = getApplication().getSharedPreferences("HowzapPrefs", 0);
         Log.d(TAG, "DATA_STORE=" + prefs.getString("data_store", null));
 
-        ContactAdapter ca = new ContactAdapter(getApplicationContext());
-        ca.setContactListener(this);
-        ca.getContacts();
+        mContactAdapter = new ContactAdapter(getApplicationContext());
+        mContactAdapter.setContactListener(this);
+        mContactAdapter.getContacts();
     }
 
     @Override
@@ -67,14 +72,43 @@ public class MyActivity extends AppCompatActivity implements ContactListener
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.ll_test);
+
+        if(((LinearLayout) linearLayout).getChildCount() > 0)
+        {
+            ((LinearLayout) linearLayout).removeAllViews();
+        }
+
+        int i = 1;
+        List<EditText> allContactEditTexts = new ArrayList<EditText>();
+        for (Contact contact : contactList)
+        {
+            EditText editText = new EditText(this);
+            editText.setId(contact.getViewId());
+            editText.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT));
+            editText.setText(contact.getFullName());
+            //textView1.setBackgroundColor(0xff66ff66); // hex color 0xAARRGGBB
+            editText.setPadding(20, 20, 20, 20);// in pixels (left, top, right, bottom)
+            allContactEditTexts.add(editText);
+            linearLayout.addView(editText);
+        }
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(MyActivity.this, "contacts count :" + contactList.size(), Toast.LENGTH_SHORT).show();
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
             }
         });
+    }
+
+    public void saveContact(View view)
+    {
+        Log.d(TAG, "Inside saveContact.");
+        EditText tv = (EditText) findViewById(1);
+        Contact contact = new Contact(tv.getText().toString());
+        //contact.setViewId(tv.getId());
+        mContactAdapter.updateContact(contact);
     }
 }

@@ -42,13 +42,15 @@ public class ContactAdapter
 
     public void getContacts()
     {
+        Log.d(TAG, "Inside getContacts.");
         mContactController.setContactListener(mContactListener);
         mContactController.getContacts();
     }
 
-    public void updateContact()
+    public void updateContact(Contact contact)
     {
-
+        Log.d(TAG, "Inside updateContact.");
+        mContactController.updateContact(contact);
     }
 
     public void deleteContact()
