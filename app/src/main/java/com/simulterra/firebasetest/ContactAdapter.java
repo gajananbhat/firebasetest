@@ -1,5 +1,6 @@
 package com.simulterra.firebasetest;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.firebase.client.DataSnapshot;
@@ -17,9 +18,20 @@ public class ContactAdapter
 {
     private final String TAG = this.getClass().getSimpleName();
 
+    private Context mContext = null;
     private ContactListener mContactListener = null;
+    private DataStore mDataStore = null;
+    private ContactController mContactController = null;
 
-    public void setContactListener(ContactListener mContactListener) {
+    public ContactAdapter(Context context)
+    {
+        this.mContext = context;
+        mDataStore = new DataStoreFactory(mContext).getDataStore();
+        mContactController = mDataStore.getContactController();
+    }
+
+    public void setContactListener(ContactListener mContactListener)
+    {
         this.mContactListener = mContactListener;
     }
 
@@ -30,30 +42,8 @@ public class ContactAdapter
 
     public void getContacts()
     {
-        final List<Contact> contactList = new ArrayList<Contact>();
-
-        Firebase myFirebaseRef = new Firebase("https://hzfbtest.firebaseio.com/contacts");
-        myFirebaseRef.addListenerForSingleValueEvent(new ValueEventListener()
-        {
-            @Override
-            public void onDataChange(DataSnapshot snapshot)
-            {
-                System.out.println(snapshot.getValue());
-                Log.d(TAG, snapshot.getValue().toString());
-                for (DataSnapshot child : snapshot.getChildren())
-                {
-                    //Contact c = new Contact(child.child("name").getValue().toString());
-                    Contact c = child.getValue(Contact.class);
-                    System.out.println(c.getFullName());
-                    contactList.add(c);
-                }
-                mContactListener.getContactsComplete(contactList);
-            }
-
-            @Override public void onCancelled(FirebaseError error)
-            {
-            }
-        });
+        mContactController.setContactListener(mContactListener);
+        mContactController.getContacts();
     }
 
     public void updateContact()

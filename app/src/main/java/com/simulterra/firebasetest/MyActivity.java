@@ -31,20 +31,7 @@ public class MyActivity extends AppCompatActivity implements ContactListener
         SharedPreferences prefs = getApplication().getSharedPreferences("HowzapPrefs", 0);
         Log.d(TAG, "DATA_STORE=" + prefs.getString("data_store", null));
 
-/*        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);*/
-
-        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(MyActivity.this, "contacts count :", Toast.LENGTH_SHORT).show();
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
-
-        ContactAdapter ca = new ContactAdapter();
+        ContactAdapter ca = new ContactAdapter(getApplicationContext());
         ca.setContactListener(this);
         ca.getContacts();
     }
@@ -76,6 +63,7 @@ public class MyActivity extends AppCompatActivity implements ContactListener
     {
         Log.d(TAG, "Inside getContactCompelte. ContactList size=" + contactList.size());
         System.out.println(contactList);
+        Toast.makeText(MyActivity.this, "contacts retrieved :" + contactList.size(), Toast.LENGTH_SHORT).show();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

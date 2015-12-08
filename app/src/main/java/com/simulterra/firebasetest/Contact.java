@@ -33,10 +33,10 @@ public class Contact
 
     public Contact() {}
 
-    public Contact(String name)
+    public Contact(String fullName)
     {
-        this.fullName = name;
-        this.name = name;
+        this.fullName = fullName;
+        this.name = fullName;
     }
 
     public String getPhoneNumber() {

@@ -22,9 +22,7 @@ public class MyApp extends Application
     @Override
     public void onCreate()
     {
-
         super.onCreate();
-
         String data_store = "Firebase"; // Default
 
         try
@@ -47,10 +45,11 @@ public class MyApp extends Application
         // Commit the edits!
         editor.commit();
 
-        DataStore ds = new DataStoreFactory(this).getDataStore();
-
         Firebase.setAndroidContext(this);
         Firebase.getDefaultConfig().setPersistenceEnabled(true);
+
+        DataStore ds = new DataStoreFactory(this).getDataStore();
+
     }
 
 }

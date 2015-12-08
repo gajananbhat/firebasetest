@@ -5,4 +5,5 @@ package com.simulterra.firebasetest;
  */
 public interface DataStore
 {
+    public ContactController getContactController();
 }

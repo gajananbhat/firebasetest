@@ -17,6 +17,8 @@ public class SQLDataStore extends SQLiteOpenHelper implements DataStore
     private static final String DATABASE_TABLE = "contacts";
     private static final int DATABASE_VERSION = 1;
 
+    private ContactSQLController mContactSQLController = null;
+
     /**
      * Constructor should be private to prevent direct instantiation.
      * make call to static method "getInstance()" instead.
@@ -44,4 +46,10 @@ public class SQLDataStore extends SQLiteOpenHelper implements DataStore
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
     {
     }
+
+    public ContactController getContactController()
+    {
+        return mContactSQLController;
+    }
+
 }
