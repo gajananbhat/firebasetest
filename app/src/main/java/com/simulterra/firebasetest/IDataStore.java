@@ -3,7 +3,7 @@ package com.simulterra.firebasetest;
 /**
  * Created by Administrator on 07/12/2015.
  */
-public interface DataStore
+public interface IDataStore
 {
-    public ContactController getContactController();
+    public IContactController getContactController();
 }

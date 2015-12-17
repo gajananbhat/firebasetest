@@ -2,9 +2,7 @@ package com.simulterra.firebasetest;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -13,13 +11,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyActivity extends AppCompatActivity implements ContactListener
+public class MyActivity extends AppCompatActivity implements IContactListener
 {
 
     private final String TAG = this.getClass().getSimpleName();
@@ -84,7 +81,8 @@ public class MyActivity extends AppCompatActivity implements ContactListener
         for (Contact contact : contactList)
         {
             EditText editText = new EditText(this);
-            editText.setId(contact.getViewId());
+            editText.setTag(contact);
+            editText.setId(i++);
             editText.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT));
             editText.setText(contact.getFullName());

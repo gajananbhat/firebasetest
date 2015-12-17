@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.firebase.client.Firebase;
@@ -48,7 +47,7 @@ public class MyApp extends Application
         Firebase.setAndroidContext(this);
         Firebase.getDefaultConfig().setPersistenceEnabled(true);
 
-        DataStore ds = new DataStoreFactory(this).getDataStore();
+        IDataStore ds = new DataStoreFactory(this).getDataStore();
 
     }
 

@@ -18,7 +18,7 @@ public class DataStoreFactory
         this.context = ctx;
     }
 
-    public DataStore getDataStore()
+    public IDataStore getDataStore()
     {
         SharedPreferences prefs = context.getSharedPreferences("HowzapPrefs", 0);
         String data_store = prefs.getString("data_store", null);

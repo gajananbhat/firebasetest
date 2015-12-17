@@ -3,14 +3,6 @@ package com.simulterra.firebasetest;
 import android.content.Context;
 import android.util.Log;
 
-import com.firebase.client.DataSnapshot;
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.ValueEventListener;
-
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by Administrator on 07/12/2015.
  */
@@ -19,9 +11,9 @@ public class ContactAdapter
     private final String TAG = this.getClass().getSimpleName();
 
     private Context mContext = null;
-    private ContactListener mContactListener = null;
-    private DataStore mDataStore = null;
-    private ContactController mContactController = null;
+    private IContactListener mContactListener = null;
+    private IDataStore mDataStore = null;
+    private IContactController mContactController = null;
 
     public ContactAdapter(Context context)
     {
@@ -30,7 +22,7 @@ public class ContactAdapter
         mContactController = mDataStore.getContactController();
     }
 
-    public void setContactListener(ContactListener mContactListener)
+    public void setContactListener(IContactListener mContactListener)
     {
         this.mContactListener = mContactListener;
     }

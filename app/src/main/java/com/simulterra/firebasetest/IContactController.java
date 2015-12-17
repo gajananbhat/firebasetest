@@ -3,9 +3,9 @@ package com.simulterra.firebasetest;
 /**
  * Created by Administrator on 08/12/2015.
  */
-public interface ContactController {
+public interface IContactController {
 
-    public void setContactListener(ContactListener contactListener);
+    public void setContactListener(IContactListener contactListener);
 
     public void getContacts();
 

@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 /**
  * Created by Gajanan on 07/12/2015.
  */
-public class SQLDataStore extends SQLiteOpenHelper implements DataStore
+public class SQLDataStore extends SQLiteOpenHelper implements IDataStore
 {
     private final String TAG = this.getClass().getSimpleName();
 
@@ -47,7 +47,7 @@ public class SQLDataStore extends SQLiteOpenHelper implements DataStore
     {
     }
 
-    public ContactController getContactController()
+    public IContactController getContactController()
     {
         return mContactSQLController;
     }

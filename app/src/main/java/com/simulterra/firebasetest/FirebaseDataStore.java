@@ -7,7 +7,7 @@ import com.firebase.client.Firebase;
 /**
  * Created by Gajanan on 07/12/2015.
  */
-public class FirebaseDataStore implements DataStore
+public class FirebaseDataStore implements IDataStore
 {
     private final String TAG = this.getClass().getSimpleName();
 

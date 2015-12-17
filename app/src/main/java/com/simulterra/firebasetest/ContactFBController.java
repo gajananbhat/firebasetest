@@ -13,13 +13,13 @@ import java.util.List;
 /**
  * Created by Administrator on 08/12/2015.
  */
-public class ContactFBController implements ContactController
+public class ContactFBController implements IContactController
 {
     private final String TAG = this.getClass().getSimpleName();
 
     private FirebaseDataStore mFBDataStore = null;
 
-    private ContactListener mContactListener = null;
+    private IContactListener mContactListener = null;
 
     public ContactFBController(FirebaseDataStore fds)
     {
@@ -27,7 +27,7 @@ public class ContactFBController implements ContactController
     }
 
     @Override
-    public void setContactListener(ContactListener mContactListener)
+    public void setContactListener(IContactListener mContactListener)
     {
         this.mContactListener = mContactListener;
     }
@@ -51,7 +51,6 @@ public class ContactFBController implements ContactController
                     //Contact c = new Contact(child.child("name").getValue().toString());
                     Contact c = child.getValue(Contact.class);
                     c.setId(child.getKey());
-                    c.setViewId(i++);
                     Log.d(TAG, c.getId() + ":" + c.getFullName());
                     contactList.add(c);
                 }
